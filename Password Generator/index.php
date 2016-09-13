@@ -33,9 +33,42 @@
 						<label>Password Length: </label>
 						<input type="number" name="length" max="20">
 						<input type="submit" name="pwCheck"> 
+					<div class="column-sm-24 column-md-20 column-lg-18 column-single">
+				<div class="item">
+					<form action="4.php" method="post">
+						<label>Number of Passwords to generate: </label>
+						<input type="number" name="amount" max="20">
+						<label>Password Length: </label>
+						<input type="number" name="length" max="20">
+						<input type="submit" name="pwCheck"> 
 					</form>
 				</div>
+				<?php  
+					if ($_SERVER['REQUEST_METHOD']=="POST" and isset($_POST["pwCheck"])){
+						$ErrorMsg = "";
+						$amount = $_POST["amount"];
+						$length = $_POST["length"];
+						
+						function generateRandomString($length) {
+							$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+							$charactersLength = strlen($characters);
+							$randomString = '';
+							for ($i = 0; $i < $length; $i++) {
+								$randomString .= $characters[rand(0, $charactersLength - 1)];
+							}
+							return $randomString;
+						}
+						
+						echo"<div class='item'>";
+						for ($x = 0; $x < $amount; $x++) {
+							echo "<p><strong>Password:</strong> " . generateRandomString($length) . "</p>";
+						}
+						echo "</div>";
+						 
+					}
+				?>
 			</div>
+			
 		</div>
 	</div>
 </body>
